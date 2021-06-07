@@ -1,0 +1,26 @@
+<div class="wrapper">
+    <input class="add" type="text" #habbit>
+
+    <button class="button" (click)="add(habbit.value)">Додати звичку</button>
+    <div class="list" cdkDropList (cdkDropListDropped)="drop($event)">
+        <div class="box" *ngFor="let habbit of habbits; let i = index; trackBy:trackByFn" cdkDrag>
+            {{habbit.habbit}}<button class="show" (click)="show(i)">
+                <img class="pencil-icon"
+                    src="https://cdns.iconmonstr.com/wp-content/assets/preview/2012/240/iconmonstr-pencil-14.png"
+                    alt="">
+            </button><input id="{{i}}" class="hidden" [(ngModel)]="habbits[i].habbit"><button
+                (click)="delete(habbit)">x</button>
+            <input type="checkbox" *ngIf="habbit.done == true" checked (change)="changeCondition()" value="done">
+            <input type="checkbox" *ngIf="habbit.done == false" (change)="changeCondition()" value="done">Виконано
+        </div>
+    </div>
+
+    <div class="space">
+        <button class="button" (click)="reset()">Cкинути</button>
+
+        <button class="button" (click)="saveChoosed()">Зберегти зміни</button>
+    </div>
+
+    <ngx-charts-pie-chart style="margin: 0%;" [results]="results" [labels]="true" [view]="[400, 300]">
+    </ngx-charts-pie-chart>
+</div>
